@@ -6,8 +6,10 @@ Este directorio contiene las políticas de escaneo, archivos de contexto y repor
 
 ## Archivos Incluidos
 
-- `CamShop_ZAP_Context.context`: Archivo de contexto formal para OWASP ZAP 2.15 que parametriza el alcance (*in-scope*), exclusiones de logout/consola H2 y la inyección automatizada del token Bearer JWT.
-- `OWASP_ZAP_Report_CamShop.html`: Reporte visual consolidado de vulnerabilidades detectadas, categorización CWE/OWASP y estado de remediación.
+- `CamShop_ZAP_Context.context`: Archivo de contexto formal para OWASP ZAP 2.17.0 que parametriza el alcance (*in-scope*), exclusiones y la inyección automatizada del token Bearer JWT.
+- `OWASP_ZAP_Report_Local_Martin.html`: Reporte oficial de auditoría DAST generado con OWASP ZAP 2.17.0 sobre los servicios locales desplegados (1,468 peticiones de ataque sobre 38 endpoints).
+- `OWASP_ZAP_Report_CamShop.html`: Copia sincronizada del reporte oficial para compatibilidad con las especificaciones del avance.
+- `2026-10-26-ZAP-Report-localhost2/`: Directorio de recursos con las hojas de estilo (CSS) e iconos de OWASP ZAP necesarios para la visualización del reporte.
 
 ---
 

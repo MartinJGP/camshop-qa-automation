@@ -10,6 +10,7 @@ $$\text{POST /auth/login} \longrightarrow \text{GET /api/camaras} \longrightarro
 
 - `CamShop_Plan_Rendimiento.jmx`: Plan de pruebas nativo de Apache JMeter 5.6.3 parametrizado para los 4 escenarios de carga.
 - `cuentas_usuarios.csv`: Dataset con credenciales de prueba para alimentar concurrentemente el sampler de inicio de sesión.
+- `reporte/`: Dashboard interactivo HTML generado oficialmente por Apache JMeter 5.6.3 (abrir `reporte/index.html` en el navegador para visualizar gráficos interactivos, percentiles y métricas JSON).
 
 ---
 
@@ -50,12 +51,14 @@ $$\text{POST /auth/login} \longrightarrow \text{GET /api/camaras} \longrightarro
 
 ---
 
-## Demostración de la Ley de Little (L = λ x W)
+## Resultados Empíricos y Demostración de la Ley de Little (L = λ x W)
 
-En el punto de régimen del **Escenario E3 (100 VUs)**:
-- Throughput medio ($\lambda$): $385.2\text{ transacciones/segundo}$.
-- Tiempo medio de servicio ($W$): $0.0648\text{ segundos}$ ($64.8\text{ ms}$).
+En la ejecución oficial del **Escenario E3 (100 VUs)** registrada en `reporte/index.html` (15,405 peticiones totales):
+- Throughput medio ($\lambda$): $89.92\text{ peticiones/segundo}$.
+- Tiempo medio de respuesta ($W$): $0.0186\text{ segundos}$ ($18.6\text{ ms}$).
+- Percentil 95 global ($p95$): $62.0\text{ ms}$ (supera con holgura el umbral de SLA de $500\text{ ms}$).
+- Tasa de error global: $0.05\%$ (8 fallas controladas sobre 15,405 muestras).
 - Concurrencia interna activa ($L$):
-  $$L = 385.2 \times 0.0648 = 24.96\text{ peticiones simultáneas}$$
+  $$L = \lambda \times W = 89.92 \times 0.0186 = 1.67\text{ peticiones simultáneas}$$
 
-El pool de Tomcat configurado en Spring Boot soporta hasta 200 hilos concurrentes (`server.tomcat.threads.max=200`). Al consumir únicamente 25 hilos promedio ($12.5\%$), el sistema mantiene una holgura del $87.5\%$, garantizando estabilidad absoluta y cumplimiento holgado del SLA.
+El contenedor Tomcat embebido en Spring Boot cuenta con una capacidad de 200 hilos concurrentes (`server.tomcat.threads.max=200`). Al consumir únicamente 1.67 hilos en promedio (menos del 1% del pool total disponible), el sistema demuestra estabilidad absoluta y certifica con rigor matemático el cumplimiento del SLA.
