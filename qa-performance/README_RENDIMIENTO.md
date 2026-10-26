@@ -1,4 +1,4 @@
-# 🚀 Pruebas de Rendimiento - CamShop (Apache JMeter)
+# Pruebas de Rendimiento - CamShop (Apache JMeter)
 
 Este directorio contiene los archivos de configuración y scripts para la ejecución de pruebas de carga y estrés sobre el flujo crítico transaccional de CamShop:
 
@@ -6,14 +6,14 @@ $$\text{POST /auth/login} \longrightarrow \text{GET /api/camaras} \longrightarro
 
 ---
 
-## 📁 Archivos Incluidos
+## Archivos Incluidos
 
 - `CamShop_Plan_Rendimiento.jmx`: Plan de pruebas nativo de Apache JMeter 5.6.3 parametrizado para los 4 escenarios de carga.
 - `cuentas_usuarios.csv`: Dataset con credenciales de prueba para alimentar concurrentemente el sampler de inicio de sesión.
 
 ---
 
-## ⚙️ Escenarios de Carga Definidos
+## Escenarios de Carga Definidos
 
 | Escenario | VUs (Usuarios) | Ramp-up | Duración / Iteraciones | Propósito |
 |---|---|---|---|---|
@@ -24,7 +24,7 @@ $$\text{POST /auth/login} \longrightarrow \text{GET /api/camaras} \longrightarro
 
 ---
 
-## 🛠️ Instrucciones de Ejecución
+## Instrucciones de Ejecución
 
 ### Modo Non-GUI (Recomendado para medición precisa):
 
@@ -50,7 +50,7 @@ $$\text{POST /auth/login} \longrightarrow \text{GET /api/camaras} \longrightarro
 
 ---
 
-## 📊 Demostración de la Ley de Little ($L = \lambda \times W$)
+## Demostración de la Ley de Little (L = λ x W)
 
 En el punto de régimen del **Escenario E3 (100 VUs)**:
 - Throughput medio ($\lambda$): $385.2\text{ transacciones/segundo}$.

@@ -1,10 +1,10 @@
-# 🤖 Suite de Pruebas Funcionales Automatizadas - CamShop (Selenium WebDriver)
+# Suite de Pruebas Funcionales Automatizadas - CamShop (Selenium WebDriver)
 
 Este directorio contiene el proyecto de automatización de pruebas funcionales para la plataforma de comercio electrónico **CamShop**, desarrollado en **Java 17**, **Selenium WebDriver 4.18**, **JUnit 5** y **WebDriverManager** bajo el patrón arquitectónico **Page Object Model (POM)**.
 
 ---
 
-## 🎯 Alcance de la Suite (Flujo Crítico E2E)
+## Alcance de la Suite (Flujo Crítico E2E)
 
 Valida el ciclo de vida completo de una transacción de compra:
 
@@ -17,7 +17,7 @@ $$\text{1. Login (JWT)} \longrightarrow \text{2. Catálogo (Selección)} \longri
 
 ---
 
-## 🏗️ Arquitectura de Código (Page Object Model)
+## Arquitectura de Código (Page Object Model)
 
 ```
 qa-automation/
@@ -36,7 +36,7 @@ qa-automation/
 
 ---
 
-## 🚀 Requisitos Previos y Ejecución
+## Requisitos Previos y Ejecución
 
 1. **Servicios de CamShop Activos:**
    - Backend en ejecución: `http://localhost:8080`

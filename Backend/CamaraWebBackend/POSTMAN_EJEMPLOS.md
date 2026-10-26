@@ -1,8 +1,8 @@
-# 📌 EJEMPLOS POSTMAN - ENDPOINTS PRINCIPALES
+# EJEMPLOS POSTMAN - ENDPOINTS PRINCIPALES
 
 ---
 
-## 🔐 AUTH CONTROLLER
+## AUTH CONTROLLER
 
 ### 1. **REGISTRO DE USUARIO**
 Crea una nueva cuenta y obtiene token JWT para acceso.
@@ -48,7 +48,7 @@ Content-Type: application/json
 
 ---
 
-## 📷 CAMARA CONTROLLER
+## CAMARA CONTROLLER
 
 ### 3. **CREAR CÁMARA**
 Agrega un nuevo producto a la base de datos con stock inicial.
@@ -108,7 +108,7 @@ Authorization: Bearer {TOKEN}
 
 ---
 
-## 🛒 CARRITO CONTROLLER
+## CARRITO CONTROLLER
 
 ### 5. **AGREGAR PRODUCTO AL CARRITO**
 Añade un producto al carrito del usuario autenticado. Si ya existe, incrementa la cantidad.
@@ -145,7 +145,7 @@ Authorization: Bearer {TOKEN}
 
 ---
 
-## 👥 CLIENTE CONTROLLER
+## CLIENTE CONTROLLER
 
 ### 6. **CREAR CLIENTE**
 Registra los datos personales del cliente vinculado a un usuario.
@@ -208,7 +208,7 @@ Authorization: Bearer {TOKEN}
 
 ---
 
-## 💳 ORDEN CONTROLLER
+## ORDEN CONTROLLER
 
 ### 8. **CHECKOUT - CREAR ORDEN Y PAGAR**
 Convierte el carrito en una orden, genera el pago y marca como completada.
@@ -244,7 +244,7 @@ Authorization: Bearer {TOKEN}
 
 ---
 
-## ⭐ RESENA CONTROLLER
+## RESENA CONTROLLER
 
 ### 9. **CREAR RESEÑA**
 Deja una calificación y comentario sobre una cámara (máximo 5 estrellas).
@@ -310,7 +310,7 @@ Authorization: Bearer {TOKEN}
 
 ---
 
-## 🖼️ CAMARA IMAGEN CONTROLLER
+## CAMARA IMAGEN CONTROLLER
 
 ### 11. **AGREGAR IMAGEN A CÁMARA**
 Sube una foto del producto asociada a una cámara. Puede marcarse como principal.
@@ -379,7 +379,7 @@ Authorization: Bearer {TOKEN}
 
 ---
 
-## 🚀 FLUJO COMPLETO RECOMENDADO
+## FLUJO COMPLETO RECOMENDADO
 
 Para probar toda la aplicación de forma integrada:
 

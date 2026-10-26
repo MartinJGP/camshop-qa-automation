@@ -1,6 +1,11 @@
 # Temporary Office lock files
 ~$*
 
+# Documentos formales e informes academicos (entrega via Canvas / Portal UTP)
+*.docx
+*.pdf
+*.pptx
+
 # Git backups
 **/.git_backup/
 
