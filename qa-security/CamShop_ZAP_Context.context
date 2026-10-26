@@ -2,47 +2,47 @@
 <configuration>
     <context>
         <name>CamShop_Security_Context</name>
-        <desc>Contexto de auditoría de seguridad DAST para la plataforma de videovigilancia CamShop (UTP - Pruebas de Software)</desc>
+        <desc>Contexto de auditoría de seguridad DAST para la plataforma CamShop (UTP - Pruebas de Software)</desc>
         <inscope>true</inscope>
-        <incregexes>http://localhost:8080/.*</incregexes>
-        <incregexes>http://localhost:4200/.*</incregexes>
+        <incregexes>http://localhost:8080.*</incregexes>
+        <incregexes>http://localhost:4200.*</incregexes>
         <excregexes>http://localhost:8080/auth/logout.*</excregexes>
         <excregexes>http://localhost:8080/h2-console.*</excregexes>
         <tech>
             <include>Db.MySQL</include>
-            <include>Db.H2</include>
             <include>Language.Java</include>
             <include>Language.JavaScript</include>
-            <include>OS.Linux</include>
-            <include>OS.Windows</include>
             <include>WS.Tomcat</include>
         </tech>
-        <urlScanPolicies>
-            <urlScanPolicy>
-                <url>http://localhost:8080/.*</url>
-                <policy>OWASP-Top-10-Strict</policy>
-            </urlScanPolicy>
-        </urlScanPolicies>
+        <urlparser>
+            <class>org.parosproxy.paros.model.StandardParameterParser</class>
+            <config>pname=;separator=&amp;value=</config>
+        </urlparser>
+        <postparser>
+            <class>org.parosproxy.paros.model.StandardParameterParser</class>
+            <config>pname=;separator=&amp;value=</config>
+        </postparser>
         <authentication>
-            <type>script</type>
-            <strategy>header</strategy>
-            <pollUrl>http://localhost:8080/api/camaras</pollUrl>
-            <pollFrequency>60</pollFrequency>
-            <pollUnits>requests</pollUnits>
-            <loggedInRegex>\bHTTP/1\.[01] 200\b</loggedInRegex>
-            <loggedOutRegex>\bHTTP/1\.[01] 401\b</loggedOutRegex>
-            <script>
-                <name>JWT_Bearer_Injector.js</name>
-                <params>username=juan.perez@email.com&amp;password=SecurityPass123!</params>
-            </script>
+            <type>0</type>
+            <strategy>EACH_REQ_RESP</strategy>
+            <pollurl/>
+            <polldata/>
+            <pollheaders/>
+            <pollfreq>60</pollfreq>
+            <pollunits>REQUESTS</pollunits>
         </authentication>
-        <users>
-            <user>
-                <name>StandardUser_JuanPerez</name>
-                <credentials>username=juan.perez@email.com&amp;password=SecurityPass123!</credentials>
-                <enabled>true</enabled>
-            </user>
-        </users>
-        <forcedUser>StandardUser_JuanPerez</forcedUser>
+        <forceduser>-1</forceduser>
+        <session>
+            <type>0</type>
+        </session>
+        <authorization>
+            <type>0</type>
+            <basic>
+                <header/>
+                <body/>
+                <logic>AND</logic>
+                <code>-1</code>
+            </basic>
+        </authorization>
     </context>
 </configuration>
