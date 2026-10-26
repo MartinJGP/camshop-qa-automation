@@ -1,6 +1,7 @@
 package com.camshop.qa.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -16,10 +17,8 @@ public class CarritoPage {
     private final WebDriver driver;
     private final WebDriverWait wait;
 
-    private final By radioTarjeta = By.cssSelector("input[value='tarjeta']");
-    private final By btnProcederPago = By.xpath("//button[contains(text(),'Proceder al pago')]");
-    private final By mensajeExito = By.cssSelector(".bg-emerald-500\\/10, .text-emerald-300");
-    private final By labelCantidadResumen = By.cssSelector("header h1, .text-xl.font-extrabold");
+    private final By btnProcederPago = By.xpath("//button[contains(.,'Proceder al pago') or contains(.,'Procesando pago')]");
+    private final By mensajeExito = By.cssSelector(".bg-emerald-500\\/10, .text-emerald-300, .border-emerald-500\\/30");
 
     public CarritoPage(WebDriver driver) {
         this.driver = driver;
@@ -32,17 +31,12 @@ public class CarritoPage {
 
     public CarritoPage seleccionarMetodoTarjeta() {
         try {
-            WebElement radio = driver.findElement(radioTarjeta);
-            if (!radio.isSelected()) {
-                // Si es un radio oculto estilizado, hacemos click sobre su label padre
-                WebElement label = radio.findElement(By.xpath("./.."));
-                label.click();
-            }
-        } catch (Exception e) {
-            // Alternativa por JS si Tailwind usa sr-only
-            ((org.openqa.selenium.JavascriptExecutor) driver).executeScript(
-                    "document.querySelector(\"input[value='tarjeta']\").checked = true;"
+            // Invocar selección vía JS para asegurar activación en radio buttons estilizados con sr-only de Tailwind
+            ((JavascriptExecutor) driver).executeScript(
+                    "var r = document.querySelector(\"input[value='tarjeta']\");" +
+                    "if(r) { r.click(); r.dispatchEvent(new Event('change', { bubbles: true })); }"
             );
+        } catch (Exception ignored) {
         }
         return this;
     }

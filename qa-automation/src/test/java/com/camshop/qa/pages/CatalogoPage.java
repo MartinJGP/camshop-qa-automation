@@ -10,15 +10,15 @@ import java.time.Duration;
 
 /**
  * Page Object Model para el catálogo de cámaras (/camaras).
+ * Soporta navegación fluida hacia la vista de detalle y adición reactiva al carrito.
  */
 public class CatalogoPage {
 
     private final WebDriver driver;
     private final WebDriverWait wait;
 
-    private final By btnAgregarCarrito = By.xpath("//button[contains(text(),'Agregar') or contains(text(),'al carrito')]");
-    private final By linkCarrito = By.cssSelector("a[routerLink='/carrito'], a[href*='carrito']");
-    private final By toastExito = By.xpath("//*[contains(text(),'agregado') or contains(@class,'toast')]");
+    private final By linkVerDetalle = By.xpath("//a[contains(@href,'/camaras/') or contains(.,'Ver detalle')]");
+    private final By selectorBotonCarrito = By.xpath("//button[contains(@class,'btn-carrito') or contains(.,'Agregar al carrito')]");
 
     public CatalogoPage(WebDriver driver) {
         this.driver = driver;
@@ -30,19 +30,27 @@ public class CatalogoPage {
     }
 
     public CatalogoPage agregarPrimeraCamara() {
-        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(btnAgregarCarrito));
+        // En catálogo: clic en 'Ver detalle' de la primera tarjeta disponible
+        WebElement detalleLink = wait.until(ExpectedConditions.elementToBeClickable(linkVerDetalle));
+        detalleLink.click();
+
+        // En vista de detalle (/camaras/:id): clic en 'Agregar al carrito'
+        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(selectorBotonCarrito));
         btn.click();
-        // Espera opcional a la notificación reactiva
+
+        // Pausa breve para permitir la sincronización reactiva del carrito
         try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(toastExito));
-        } catch (Exception ignored) {
+            Thread.sleep(700);
+        } catch (InterruptedException ignored) {
         }
+
         return this;
     }
 
     public CarritoPage irAlCarrito() {
-        WebElement link = wait.until(ExpectedConditions.elementToBeClickable(linkCarrito));
-        link.click();
+        String currentUrl = driver.getCurrentUrl();
+        String origin = currentUrl.contains("/camaras") ? currentUrl.substring(0, currentUrl.indexOf("/camaras")) : "http://localhost:4200";
+        driver.get(origin + "/carrito");
         wait.until(ExpectedConditions.urlContains("/carrito"));
         return new CarritoPage(driver);
     }

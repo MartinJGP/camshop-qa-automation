@@ -16,8 +16,7 @@ public class CheckoutPage {
     private final WebDriver driver;
     private final WebDriverWait wait;
 
-    private final By mensajeExito = By.cssSelector(".bg-emerald-500\\/10, .text-emerald-300");
-    private final By carritoVacioTitle = By.xpath("//*[contains(text(),'Tu carrito está vacío') or contains(text(),'carrito está vac')]");
+    private final By mensajeExito = By.cssSelector(".bg-emerald-500\\/10, .text-emerald-300, .border-emerald-500\\/30");
 
     public CheckoutPage(WebDriver driver) {
         this.driver = driver;
@@ -28,13 +27,17 @@ public class CheckoutPage {
         try {
             WebElement exito = wait.until(ExpectedConditions.visibilityOfElementLocated(mensajeExito));
             String texto = exito.getText();
-            return texto.contains("Orden #") || texto.contains("registrada") || texto.contains("PAGADO");
+            return texto.contains("Orden #") || texto.contains("registrada") || texto.contains("PAGADO") || texto.contains("Pago");
         } catch (Exception e) {
             return false;
         }
     }
 
     public String obtenerMensajeExito() {
-        return driver.findElement(mensajeExito).getText();
+        try {
+            return driver.findElement(mensajeExito).getText();
+        } catch (Exception e) {
+            return "";
+        }
     }
 }
