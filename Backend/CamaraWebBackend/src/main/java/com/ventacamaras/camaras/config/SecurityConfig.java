@@ -40,12 +40,17 @@ public class SecurityConfig {
         http
                 // Desabilitar CSRF (no es necesario con JWT)
                 .csrf(csrf -> csrf.disable()).cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .headers(headers -> headers
+                        .frameOptions(frame -> frame.deny())
+                        .contentTypeOptions(org.springframework.security.config.Customizer.withDefaults())
+                )
                 // Usar autenticación stateless (sin sesiones)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 // Configurar autorización de endpoints
                 .authorizeHttpRequests(authz -> authz
                         // Permitir registro y login sin autenticación
-                        .requestMatchers("/", "/error", "/auth/register", "/auth/login", "/actuator/health", "/uploads/**").permitAll()
+                        .requestMatchers("/", "/error", "/auth/register", "/auth/login", "/uploads/**").permitAll()
+                        .requestMatchers("/actuator/**").hasRole("ADMIN")
                         .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/categorias/**").permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.GET,
                                 "/api/camaras/**", "/api/resenas/**").permitAll()
