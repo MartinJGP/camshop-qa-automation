@@ -45,7 +45,7 @@ public class SecurityConfig {
                 // Configurar autorización de endpoints
                 .authorizeHttpRequests(authz -> authz
                         // Permitir registro y login sin autenticación
-                        .requestMatchers("/auth/register", "/auth/login", "/actuator/health", "/uploads/**").permitAll()
+                        .requestMatchers("/", "/error", "/auth/register", "/auth/login", "/actuator/health", "/uploads/**").permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/categorias/**").permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.GET,
                                 "/api/camaras/**", "/api/resenas/**").permitAll()
