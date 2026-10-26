@@ -1,0 +1,5 @@
+/* Estilos globales gestionados por Tailwind CSS */
+
+.contenido-principal {
+  min-height: 80vh;
+}

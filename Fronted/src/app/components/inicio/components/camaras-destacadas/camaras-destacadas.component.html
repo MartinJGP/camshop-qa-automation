@@ -1,0 +1,138 @@
+<section class="py-16 md:py-24 bg-[#090e1e]/60 border-y border-slate-800/80">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+      <div>
+        <div class="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#ff7189] mb-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#e94560]"></span>
+          <span>Equipos Más Buscados</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">
+          Cámaras en Stock Inmediato
+        </h2>
+      </div>
+      <a routerLink="/camaras"
+         class="inline-flex items-center gap-2 text-xs font-bold text-slate-300 hover:text-[#ff7189] transition-colors">
+        <span>Ver todas las cámaras</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+
+    <!-- Loading Skeleton -->
+    @if (cargando()) {
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        @for (i of [1, 2, 3, 4]; track i) {
+          <div class="rounded-2xl bg-[#111a31] border border-slate-800 p-4 animate-pulse space-y-4">
+            <div class="h-44 bg-slate-800 rounded-xl"></div>
+            <div class="h-4 bg-slate-800 rounded w-3/4"></div>
+            <div class="h-3 bg-slate-800 rounded w-1/2"></div>
+            <div class="h-8 bg-slate-800 rounded"></div>
+          </div>
+        }
+      </div>
+    } @else if (camaras().length > 0) {
+      <!-- Product Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        @for (c of camaras(); track c.id) {
+          <article class="group relative rounded-2xl bg-[#111a31] border border-slate-800 hover:border-slate-700 p-4 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl">
+            
+            <div>
+              <!-- Image Container -->
+              <div class="relative h-48 rounded-xl overflow-hidden bg-slate-900 mb-4 flex items-center justify-center">
+                <img [src]="c.imagenes && c.imagenes.length > 0 ? c.imagenes[0].url : placeholder"
+                     [alt]="c.nombre"
+                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                     loading="lazy" />
+
+                <!-- Badges overlay -->
+                <div class="absolute top-2.5 left-2.5 flex flex-col gap-1">
+                  @if (c.categoria) {
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-900/80 backdrop-blur-md text-slate-200 border border-slate-700">
+                      {{ c.categoria.nombre }}
+                    </span>
+                  }
+                  @if (c.resolucion) {
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-900/80 backdrop-blur-md text-[#ff7189] border border-slate-700">
+                      {{ c.resolucion }}
+                    </span>
+                  }
+                </div>
+
+                <!-- Stock Pill -->
+                <div class="absolute top-2.5 right-2.5">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold"
+                        [class.bg-emerald-500/20]="c.stock > 0"
+                        [class.text-emerald-300]="c.stock > 0"
+                        [class.border-emerald-500/30]="c.stock > 0"
+                        [class.bg-rose-500/20]="c.stock <= 0"
+                        [class.text-rose-300]="c.stock <= 0"
+                        [class.border-rose-500/30]="c.stock <= 0">
+                    {{ c.stock > 0 ? c.stock + ' disp.' : 'Agotado' }}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Product Info -->
+              <div class="space-y-1 mb-4">
+                <div class="text-[11px] font-mono text-slate-400 font-medium">
+                  {{ c.marca }} • {{ c.modelo }}
+                </div>
+                <h3 class="text-sm font-bold text-white group-hover:text-[#ff7189] transition-colors line-clamp-2">
+                  <a [routerLink]="['/camaras', c.id]">{{ c.nombre }}</a>
+                </h3>
+              </div>
+            </div>
+
+            <!-- Bottom Price & Cart Action -->
+            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
+              <div>
+                <span class="text-[10px] text-slate-400 block font-medium">Precio</span>
+                <span class="text-base font-extrabold text-white">S/ {{ c.precio | number:'1.2-2' }}</span>
+              </div>
+
+              <div class="flex items-center gap-1.5">
+                <a [routerLink]="['/camaras', c.id]"
+                   class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors text-xs font-semibold"
+                   title="Ver detalle">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                </a>
+
+                <button type="button"
+                        (click)="agregarAlCarrito(c, $event)"
+                        [disabled]="c.stock <= 0 || agregandoId() === c.id"
+                        class="px-3 py-2 rounded-lg bg-[#e94560] hover:bg-[#d1354e] disabled:opacity-50 text-white text-xs font-bold transition-all shadow-[0_4px_12px_rgba(233,69,96,0.3)] flex items-center gap-1">
+                  @if (agregandoId() === c.id) {
+                    <svg class="w-3.5 h-3.5 animate-spin" fill="none" viewBox="0 0 24 24">
+                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                    </svg>
+                  } @else {
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                  }
+                  <span>Agregar</span>
+                </button>
+              </div>
+            </div>
+
+          </article>
+        }
+      </div>
+    } @else {
+      <div class="text-center py-12 rounded-2xl bg-[#111a31] border border-slate-800">
+        <p class="text-slate-400 text-sm">Explora nuestro catálogo completo para descubrir todos los modelos disponibles.</p>
+        <a routerLink="/camaras" class="mt-4 inline-block px-5 py-2.5 rounded-xl bg-[#e94560] text-white text-xs font-bold">
+          Ir al catálogo
+        </a>
+      </div>
+    }
+
+  </div>
+</section>

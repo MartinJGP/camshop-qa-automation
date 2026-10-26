@@ -1,0 +1,32 @@
+<section class="relative z-20 -mt-10 sm:-mt-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+    @for (item of beneficios; track item.titulo) {
+      <div class="group relative p-6 rounded-2xl bg-[#111a31]/95 backdrop-blur-xl border border-slate-800 hover:border-[#e94560]/50 shadow-xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_15px_30px_rgba(233,69,96,0.15)]">
+        
+        <!-- Top row: Value & Badge -->
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-3xl font-extrabold text-white tracking-tight group-hover:text-[#ff7189] transition-colors">
+            {{ item.valor }}
+          </span>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-800 text-slate-300 border border-slate-700 group-hover:border-[#e94560]/30 group-hover:text-white transition-colors">
+            {{ item.badge }}
+          </span>
+        </div>
+
+        <!-- Title -->
+        <h3 class="text-base font-bold text-white mb-2 group-hover:text-[#ff7189] transition-colors">
+          {{ item.titulo }}
+        </h3>
+
+        <!-- Description -->
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          {{ item.descripcion }}
+        </p>
+
+        <!-- Subtle bottom accent line -->
+        <div class="absolute bottom-0 left-6 right-6 h-[2px] bg-gradient-to-r from-transparent via-[#e94560]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+      </div>
+    }
+  </div>
+</section>
+

@@ -1,0 +1,121 @@
+<section class="py-20 md:py-28 relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+      <div>
+        <div class="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#ff7189] mb-3">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#e94560]"></span>
+          <span>Soluciones a tu medida</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          Protección diseñada para cada entorno
+        </h2>
+      </div>
+      <p class="text-sm sm:text-base text-slate-400 max-w-md">
+        Desde coberturas discretas residenciales hasta vigilancia industrial con rotación 360°, encuentra especificaciones claras y stock inmediato.
+      </p>
+    </div>
+
+    <!-- Category Filter Buttons -->
+    <div class="flex flex-wrap items-center gap-2 mb-8">
+      <button type="button"
+              (click)="filtrar('todos')"
+              [class.bg-[#e94560]]="filtroActivo() === 'todos'"
+              [class.text-white]="filtroActivo() === 'todos'"
+              [class.shadow-[0_4px_15px_rgba(233,69,96,0.3)]]="filtroActivo() === 'todos'"
+              [class.bg-slate-800/80]="filtroActivo() !== 'todos'"
+              [class.text-slate-300]="filtroActivo() !== 'todos'"
+              class="px-4 py-2 rounded-xl text-xs font-bold transition-all hover:bg-slate-700">
+        Todas las soluciones
+      </button>
+      <button type="button"
+              (click)="filtrar('interior')"
+              [class.bg-[#e94560]]="filtroActivo() === 'interior'"
+              [class.text-white]="filtroActivo() === 'interior'"
+              [class.shadow-[0_4px_15px_rgba(233,69,96,0.3)]]="filtroActivo() === 'interior'"
+              [class.bg-slate-800/80]="filtroActivo() !== 'interior'"
+              [class.text-slate-300]="filtroActivo() !== 'interior'"
+              class="px-4 py-2 rounded-xl text-xs font-bold transition-all hover:bg-slate-700">
+        Hogar & Interior
+      </button>
+      <button type="button"
+              (click)="filtrar('exterior')"
+              [class.bg-[#e94560]]="filtroActivo() === 'exterior'"
+              [class.text-white]="filtroActivo() === 'exterior'"
+              [class.shadow-[0_4px_15px_rgba(233,69,96,0.3)]]="filtroActivo() === 'exterior'"
+              [class.bg-slate-800/80]="filtroActivo() !== 'exterior'"
+              [class.text-slate-300]="filtroActivo() !== 'exterior'"
+              class="px-4 py-2 rounded-xl text-xs font-bold transition-all hover:bg-slate-700">
+        Fachadas & Exterior
+      </button>
+      <button type="button"
+              (click)="filtrar('ptz')"
+              [class.bg-[#e94560]]="filtroActivo() === 'ptz'"
+              [class.text-white]="filtroActivo() === 'ptz'"
+              [class.shadow-[0_4px_15px_rgba(233,69,96,0.3)]]="filtroActivo() === 'ptz'"
+              [class.bg-slate-800/80]="filtroActivo() !== 'ptz'"
+              [class.text-slate-300]="filtroActivo() !== 'ptz'"
+              class="px-4 py-2 rounded-xl text-xs font-bold transition-all hover:bg-slate-700">
+        PTZ & Negocios
+      </button>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      @for (item of solucionesFiltradas; track item.id) {
+        <div class="group relative rounded-2xl bg-[#111a31] border border-slate-800 hover:border-slate-700 p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
+          
+          <div>
+            <!-- Number & Badge -->
+            <div class="flex items-center justify-between mb-4">
+              <span class="font-mono text-xs font-extrabold text-[#e94560] tracking-widest">
+                {{ item.numero }}
+              </span>
+              <span class="text-[11px] font-semibold text-slate-400 bg-slate-800 px-2.5 py-1 rounded-full">
+                {{ item.recomendadoPara }}
+              </span>
+            </div>
+
+            <!-- Title & Subtitle -->
+            <h3 class="text-xl font-bold text-white mb-1 group-hover:text-[#ff7189] transition-colors">
+              {{ item.titulo }}
+            </h3>
+            <p class="text-xs font-medium text-slate-400 mb-4">
+              {{ item.subtitulo }}
+            </p>
+
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+              {{ item.descripcion }}
+            </p>
+
+            <!-- Feature Bullet Points -->
+            <div class="space-y-2.5 pt-4 border-t border-slate-800/80 mb-6">
+              @for (feat of item.caracteristicas; track feat) {
+                <div class="flex items-center gap-2 text-xs text-slate-300">
+                  <svg class="w-4 h-4 text-[#4ee0a5] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>{{ feat }}</span>
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Card Action Link -->
+          <div class="pt-4 border-t border-slate-800">
+            <a routerLink="/camaras"
+               class="inline-flex items-center gap-2 text-xs font-bold text-[#ff7189] hover:text-white transition-colors group-hover:translate-x-1">
+              <span>Ver cámaras disponibles</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
+
+        </div>
+      }
+    </div>
+
+  </div>
+</section>

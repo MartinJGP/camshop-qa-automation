@@ -1,0 +1,7 @@
+target
+.git
+.idea
+.metals
+uploads
+*.log
+README.md

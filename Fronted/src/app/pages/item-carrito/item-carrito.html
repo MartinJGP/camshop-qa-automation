@@ -1,0 +1,70 @@
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-[#111a31] border border-slate-800 hover:border-slate-700 transition-all">
+  
+  <!-- Camera Thumbnail & Details -->
+  <div class="flex items-center gap-4 min-w-0">
+    @if (item.camara.imagenes && item.camara.imagenes.length > 0) {
+      <img [src]="item.camara.imagenes[0].url"
+           [alt]="item.camara.nombre"
+           class="w-16 h-16 rounded-xl object-cover bg-slate-900 border border-slate-700/60 shrink-0" />
+    } @else {
+      <div class="w-16 h-16 rounded-xl bg-slate-900 border border-slate-700/60 flex items-center justify-center text-slate-500 shrink-0">
+        <svg class="w-6 h-6 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        </svg>
+      </div>
+    }
+
+    <div class="min-w-0">
+      <h4 class="text-sm font-bold text-white truncate max-w-xs sm:max-w-sm">
+        {{ item.camara.nombre }}
+      </h4>
+      <p class="text-xs text-slate-400 font-mono">
+        Unitario: S/ {{ item.precioUnitario | number:'1.2-2' }}
+      </p>
+    </div>
+  </div>
+
+  <!-- Quantity Stepper, Subtotal & Remove -->
+  <div class="flex items-center justify-between sm:justify-end gap-6 pt-3 sm:pt-0 border-t sm:border-t-0 border-slate-800/80">
+    
+    <!-- Stepper -->
+    <div class="flex items-center rounded-xl bg-slate-900 border border-slate-700/60 p-1">
+      <button type="button"
+              (click)="onDisminuir()"
+              class="w-7 h-7 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 flex items-center justify-center font-bold text-sm transition-colors"
+              aria-label="Disminuir cantidad">
+        -
+      </button>
+      <span class="w-8 text-center text-xs font-mono font-bold text-white">
+        {{ item.cantidad }}
+      </span>
+      <button type="button"
+              (click)="onAumentar()"
+              class="w-7 h-7 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 flex items-center justify-center font-bold text-sm transition-colors"
+              aria-label="Aumentar cantidad">
+        +
+      </button>
+    </div>
+
+    <!-- Subtotal -->
+    <div class="text-right min-w-[90px]">
+      <span class="text-[10px] uppercase tracking-wider text-slate-400 block font-semibold">Subtotal</span>
+      <span class="text-sm sm:text-base font-extrabold text-white">
+        S/ {{ item.subtotal | number:'1.2-2' }}
+      </span>
+    </div>
+
+    <!-- Delete Button -->
+    <button type="button"
+            (click)="onEliminar()"
+            class="p-2 rounded-xl text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
+            title="Eliminar del carrito"
+            aria-label="Eliminar producto">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+      </svg>
+    </button>
+
+  </div>
+
+</div>

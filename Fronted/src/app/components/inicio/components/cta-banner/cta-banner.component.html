@@ -1,0 +1,38 @@
+<section class="py-16 md:py-24 relative overflow-hidden">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+    <div class="p-8 sm:p-14 rounded-3xl bg-gradient-to-r from-[#17223d] via-[#1f3056] to-[#17223d] border border-slate-700/80 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden">
+      
+      <!-- Decorative background lights -->
+      <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-96 h-32 bg-[#e94560]/20 rounded-full blur-3xl pointer-events-none"></div>
+
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-4">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        Sistemas en Línea
+      </span>
+
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
+        ¿Listo para blindar tus espacios con tecnología inteligente?
+      </h2>
+
+      <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto mb-8 leading-relaxed">
+        Únete a cientos de usuarios que confían en CamShop para la protección de sus familias y negocios. Explora modelos con entrega rápida y respaldo garantizado.
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a routerLink="/camaras"
+           class="px-7 py-3.5 rounded-xl font-bold text-white bg-[#e94560] hover:bg-[#d1354e] shadow-[0_10px_25px_rgba(233,69,96,0.35)] transition-all hover:-translate-y-0.5">
+          Ver Catálogo Completo
+        </a>
+
+        @if (!auth.isLogged()) {
+          <a routerLink="/registro"
+             class="px-7 py-3.5 rounded-xl font-bold text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-600 transition-all hover:-translate-y-0.5">
+            Registrarme Gratis
+          </a>
+        }
+      </div>
+
+    </div>
+  </div>
+</section>
+

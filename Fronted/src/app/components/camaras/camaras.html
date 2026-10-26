@@ -1,0 +1,137 @@
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16 space-y-10">
+  
+  <!-- Hero Banner -->
+  <header class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#111a31] via-[#162446] to-[#0c1227] border border-slate-800 p-8 sm:p-12 shadow-2xl flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
+    <div class="space-y-3 max-w-2xl relative z-10">
+      <div class="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#ff7189]">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#e94560] animate-pulse"></span>
+        <span>Catálogo Oficial de Equipos</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+        Encuentra la cámara ideal para cada espacio.
+      </h1>
+      <p class="text-sm sm:text-base text-slate-300">
+        Compara modelos domo, bala y PTZ para interior o exterior con stock 100% actualizado en tiempo real.
+      </p>
+    </div>
+
+    <div class="p-4 rounded-2xl bg-slate-900/80 backdrop-blur-md border border-slate-700/60 shrink-0 space-y-1 relative z-10">
+      <div class="text-xs font-mono font-bold text-emerald-400 flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span>Compra Segura</span>
+      </div>
+      <p class="text-[11px] text-slate-400">Pago simulado • Control de pedidos</p>
+    </div>
+  </header>
+
+  <!-- Filter Panel -->
+  <form [formGroup]="filtros" (ngSubmit)="cargarCatalogo()"
+        class="p-6 rounded-2xl bg-[#111a31] border border-slate-800 shadow-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 items-end">
+    
+    <!-- Brand -->
+    <label class="space-y-1.5">
+      <span class="text-xs font-bold text-slate-300 block">Marca</span>
+      <input formControlName="marca"
+             placeholder="Ej. Hikvision, Dahua..."
+             class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#e94560]" />
+    </label>
+
+    <!-- Category -->
+    <label class="space-y-1.5">
+      <span class="text-xs font-bold text-slate-300 block">Categoría</span>
+      <select formControlName="categoriaId"
+              class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:border-[#e94560]">
+        <option [ngValue]="null">Todas las categorías</option>
+        @for (categoria of categorias(); track categoria.id) {
+          <option [ngValue]="categoria.id">{{ categoria.nombre }}</option>
+        }
+      </select>
+    </label>
+
+    <!-- Min Price -->
+    <label class="space-y-1.5">
+      <span class="text-xs font-bold text-slate-300 block">Precio mín.</span>
+      <input type="number" min="0" formControlName="precioMin" placeholder="S/ 0"
+             class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#e94560]" />
+    </label>
+
+    <!-- Max Price -->
+    <label class="space-y-1.5">
+      <span class="text-xs font-bold text-slate-300 block">Precio máx.</span>
+      <input type="number" min="0" formControlName="precioMax" placeholder="S/ 9999"
+             class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#e94560]" />
+    </label>
+
+    <!-- In-stock checkbox -->
+    <div class="flex items-center gap-2 pb-2.5">
+      <input type="checkbox" id="soloStock" formControlName="soloStock"
+             class="w-4 h-4 rounded bg-slate-900 border-slate-700 text-[#e94560] focus:ring-0 focus:ring-offset-0" />
+      <label for="soloStock" class="text-xs font-bold text-slate-300 cursor-pointer">Solo con stock</label>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex items-center gap-2">
+      <button type="submit"
+              class="flex-1 py-2.5 px-4 rounded-xl font-bold text-xs text-white bg-[#e94560] hover:bg-[#d1354e] shadow-[0_4px_12px_rgba(233,69,96,0.3)] transition-all">
+        Buscar
+      </button>
+      <button type="button" (click)="limpiar()"
+              class="py-2.5 px-3 rounded-xl font-bold text-xs text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 transition-all">
+        Limpiar
+      </button>
+    </div>
+
+  </form>
+
+  <!-- Results Count Header -->
+  <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+    <div>
+      <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Productos disponibles</span>
+      <h2 class="text-xl font-extrabold text-white">
+        {{ camaras().length }} cámaras encontradas
+      </h2>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  @if (loading()) {
+    <div class="p-16 rounded-2xl bg-[#111a31] border border-slate-800 text-center space-y-3">
+      <div class="w-10 h-10 border-4 border-slate-800 border-t-[#e94560] rounded-full animate-spin mx-auto"></div>
+      <p class="text-sm font-bold text-white">Cargando catálogo de cámaras...</p>
+    </div>
+  }
+
+  <!-- Error State -->
+  @if (error()) {
+    <div class="p-6 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-center">
+      {{ error() }}
+    </div>
+  }
+
+  <!-- Empty State -->
+  @if (!loading() && !error() && camaras().length === 0) {
+    <div class="p-16 rounded-2xl bg-[#111a31] border border-slate-800 text-center space-y-4 max-w-md mx-auto">
+      <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center mx-auto text-slate-500">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+      <h3 class="text-lg font-bold text-white">No encontramos resultados</h3>
+      <p class="text-xs text-slate-400">Prueba ajustando los filtros de precio, marca o categoría.</p>
+      <button type="button" (click)="limpiar()"
+              class="px-5 py-2.5 rounded-xl bg-[#e94560] text-white text-xs font-bold shadow-md hover:bg-[#d1354e] transition-all">
+        Ver todo el catálogo
+      </button>
+    </div>
+  }
+
+  <!-- Cards Grid -->
+  @if (!loading() && !error() && camaras().length > 0) {
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      @for (camara of camaras(); track camara.id) {
+        <app-tarjeta-camara [camara]="camara" />
+      }
+    </div>
+  }
+
+</section>

@@ -1,0 +1,193 @@
+﻿<section class="relative overflow-hidden pt-12 pb-20 md:pt-16 md:pb-28 bg-[#0c1227]">
+  <!-- Glow orbs in background -->
+  <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-[#e94560]/10 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      
+      <!-- Left Column: Copy & Actions -->
+      <div class="lg:col-span-7 space-y-6">
+        <!-- Eyebrow Tag -->
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#e94560]/10 border border-[#e94560]/30 text-[#ff7189] text-xs font-bold uppercase tracking-widest">
+          <span class="w-2 h-2 rounded-full bg-[#e94560] animate-ping" style="width: 8px; height: 8px;"></span>
+          <span>Videovigilancia Inteligente</span>
+        </div>
+
+        <!-- Heading -->
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.1]">
+          Seguridad que puedes <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#ff7189] via-[#e94560] to-amber-300">
+            ver, controlar y confiar.
+          </span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="text-base sm:text-lg text-slate-300 max-w-xl leading-relaxed">
+          Protege tu hogar y negocio con cámaras de alta definición, visión nocturna infrarroja y seguimiento en tiempo real de cada una de tus órdenes.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap items-center gap-4 pt-2">
+          <a routerLink="/camaras"
+             class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-white bg-[#e94560] hover:bg-[#d1354e] shadow-lg transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0">
+            <svg width="20" height="20" style="width: 20px; height: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
+            <span>Explorar catálogo</span>
+          </a>
+
+          @if (!auth.isLogged()) {
+            <a routerLink="/registro"
+               class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-slate-500 transition-all duration-300 hover:-translate-y-0.5">
+              <span>Crear una cuenta</span>
+              <svg width="16" height="16" style="width: 16px; height: 16px;" class="text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          } @else {
+            <a routerLink="/historial"
+               class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-slate-500 transition-all duration-300 hover:-translate-y-0.5">
+              <span>Ver mis pedidos</span>
+              <svg width="16" height="16" style="width: 16px; height: 16px;" class="text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          }
+        </div>
+
+        <!-- Trust Features -->
+        <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-800 max-w-lg">
+          <div class="flex items-center gap-2 text-xs text-slate-400 font-medium">
+            <svg width="16" height="16" style="width: 16px; height: 16px;" class="text-[#4ee0a5] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Stock Real</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-slate-400 font-medium">
+            <svg width="16" height="16" style="width: 16px; height: 16px;" class="text-[#4ee0a5] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Pago Simulado</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-slate-400 font-medium">
+            <svg width="16" height="16" style="width: 16px; height: 16px;" class="text-[#4ee0a5] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Garantía Oficial</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive CCTV Security Terminal Simulator -->
+      <div class="lg:col-span-5">
+        <div class="relative mx-auto max-w-md lg:max-w-none">
+          
+          <!-- Terminal Chassis -->
+          <div class="p-3 sm:p-4 rounded-2xl bg-[#111a31] border border-slate-700 shadow-2xl">
+            
+            <!-- Terminal Header -->
+            <div class="flex items-center justify-between pb-3 border-b border-slate-700/50 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="flex h-2.5 w-2.5 relative" style="width: 10px; height: 10px;">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4ee0a5] opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#4ee0a5]"></span>
+                </span>
+                <span class="font-mono text-emerald-400 font-bold uppercase tracking-wide">MONITOR ACTIVO</span>
+              </div>
+              <div class="flex items-center gap-3 font-mono text-slate-400">
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-[10px] text-slate-300 font-semibold border border-slate-700">
+                  {{ selectedCamera().id }}
+                </span>
+                <span>{{ selectedCamera().location }}</span>
+              </div>
+            </div>
+
+            <!-- Video Screen Viewport -->
+            <div class="relative mt-3 h-64 sm:h-72 w-full rounded-xl overflow-hidden bg-gradient-to-br from-slate-900 via-[#15223c] to-[#0d1424] border border-slate-800 flex flex-col justify-between p-4" style="min-height: 250px;">
+              
+              <!-- Scanline Laser Effect -->
+              <div class="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#ff7189] to-transparent shadow-[0_0_12px_#ff7189] animate-scanline pointer-events-none"></div>
+
+              <!-- Security Grid Background Pattern -->
+              <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
+
+              <!-- Screen Top Badges -->
+              <div class="relative z-10 flex items-center justify-between text-[11px] font-mono">
+                <div class="flex items-center gap-1.5 px-2 py-1 rounded bg-black/60 backdrop-blur-sm border border-red-500/40 text-red-400 font-bold">
+                  <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse" style="width: 8px; height: 8px;"></span>
+                  <span>REC</span>
+                </div>
+                <div class="px-2 py-1 rounded bg-black/60 backdrop-blur-sm border border-slate-700 text-slate-300">
+                  {{ selectedCamera().resolution }} · {{ selectedCamera().fps }} FPS
+                </div>
+              </div>
+
+              <!-- Target Reticle / AI Focus Box in center -->
+              <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                <div class="w-24 h-24 sm:w-28 sm:h-28 border border-dashed border-[#ff7189]/60 rounded-lg relative flex items-center justify-center">
+                  <div class="w-2 h-2 rounded-full bg-[#ff7189] animate-ping" style="width: 8px; height: 8px;"></div>
+                  <div class="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2 border-[#ff7189]"></div>
+                  <div class="absolute -top-1 -right-1 w-3 h-3 border-t-2 border-r-2 border-[#ff7189]"></div>
+                  <div class="absolute -bottom-1 -left-1 w-3 h-3 border-b-2 border-l-2 border-[#ff7189]"></div>
+                  <div class="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-[#ff7189]"></div>
+                  <span class="absolute -bottom-5 text-[9px] font-mono text-[#ff7189] font-bold tracking-wider">OBJETO DETECTADO</span>
+                </div>
+              </div>
+
+              <!-- Screen Bottom Stats & Clock -->
+              <div class="relative z-10 flex items-end justify-between text-xs font-mono text-white">
+                <div class="px-2 py-1 rounded bg-black/60 backdrop-blur-sm border border-slate-700">
+                  <span class="text-emerald-400 font-bold">LIVE</span>
+                  <span class="ml-2 font-bold">{{ currentTimestamp() }}</span>
+                </div>
+                <div class="px-2 py-1 rounded bg-black/60 backdrop-blur-sm border border-slate-700 text-[10px] text-slate-300">
+                  SEÑAL {{ selectedCamera().signalStrength }}%
+                </div>
+              </div>
+            </div>
+
+            <!-- Camera Switcher Controls -->
+            <div class="mt-3 pt-3 border-t border-slate-700/50">
+              <div class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold mb-2 flex items-center justify-between">
+                <span>Cambiar de Canal / Cámara:</span>
+                <span class="text-[#4ee0a5] font-mono font-bold">{{ selectedCamera().name }}</span>
+              </div>
+              <div class="grid grid-cols-3 gap-2">
+                @for (cam of cameras; track cam.id) {
+                  <button type="button"
+                          (click)="selectCamera(cam)"
+                          [class.border-[#e94560]]="selectedCamera().id === cam.id"
+                          [class.bg-[#e94560]/20]="selectedCamera().id === cam.id"
+                          [class.text-white]="selectedCamera().id === cam.id"
+                          [class.border-slate-700]="selectedCamera().id !== cam.id"
+                          [class.bg-slate-800/60]="selectedCamera().id !== cam.id"
+                          [class.text-slate-400]="selectedCamera().id !== cam.id"
+                          class="px-2 py-2 rounded-lg border text-left text-xs font-medium transition-all hover:bg-slate-700 hover:text-white flex flex-col justify-center">
+                    <span class="font-mono text-[10px] font-bold text-slate-300">{{ cam.id }}</span>
+                    <span class="truncate text-[11px]">{{ cam.name }}</span>
+                  </button>
+                }
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Floating Detection Alert Box -->
+          <div class="absolute -bottom-6 -left-4 sm:-left-6 p-3.5 rounded-xl bg-slate-900 border border-emerald-500/30 shadow-2xl flex items-center gap-3 animate-float" style="z-index: 20;">
+            <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0" style="width: 40px; height: 40px;">
+              <svg width="20" height="20" style="width: 20px; height: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-white">Zona Protegida Activa</div>
+              <div class="text-[11px] text-slate-400">Sin intrusiones detectadas</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,168 @@
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16 space-y-8">
+  
+  <!-- Header Banner -->
+  <header class="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-[#111a31] via-[#162446] to-[#0c1227] border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl">
+    <div>
+      <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#ff7189]">Carrito y checkout</span>
+      <h1 class="text-2xl sm:text-3xl font-black text-white mt-1">Mi Carrito de Compra</h1>
+      <p class="text-xs sm:text-sm text-slate-300 max-w-xl mt-1">
+        Revisa tus productos, valida tus datos de cliente y completa una simulación de pago segura antes de guardar tu pedido.
+      </p>
+    </div>
+    <a routerLink="/camaras"
+       class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white text-xs font-bold border border-slate-700 transition-all shrink-0">
+      ← Ver más cámaras
+    </a>
+  </header>
+
+  <!-- Alerts -->
+  @if (loading()) {
+    <div class="p-12 rounded-2xl bg-[#111a31] border border-slate-800 text-center text-slate-300 text-sm">
+      Cargando carrito...
+    </div>
+  }
+
+  @if (error()) {
+    <div class="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs sm:text-sm">
+      {{ error() }}
+    </div>
+  }
+
+  @if (exito()) {
+    <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs sm:text-sm">
+      {{ exito() }}
+    </div>
+  }
+
+  @if (!loading() && !error()) {
+    @if (items().length === 0) {
+      <div class="p-16 rounded-3xl bg-[#111a31] border border-slate-800 text-center space-y-4 max-w-md mx-auto shadow-xl">
+        <div class="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center mx-auto text-slate-500">
+          <svg class="w-8 h-8 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-white">Tu carrito está vacío</h3>
+        <p class="text-xs text-slate-400">Descubre nuestros modelos de cámaras y añade equipos para iniciar tu pedido.</p>
+        <a routerLink="/camaras"
+           class="inline-block px-6 py-3 rounded-xl bg-[#e94560] text-white text-xs font-bold shadow-md hover:bg-[#d1354e] transition-all">
+          Explorar catálogo
+        </a>
+      </div>
+    } @else {
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Cart Items Column -->
+        <div class="lg:col-span-8 space-y-4">
+          @for (item of items(); track item.id) {
+            <app-item-carrito
+              [item]="item"
+              (eliminar)="onEliminar($event)"
+              (actualizar)="onActualizar($event)" />
+          }
+        </div>
+
+        <!-- Checkout Summary Card -->
+        <div class="lg:col-span-4 p-6 rounded-2xl bg-[#111a31] border border-slate-800 space-y-6 shadow-xl sticky top-24">
+          <h3 class="text-base font-extrabold text-white pb-3 border-b border-slate-800 flex items-center justify-between">
+            <span>Resumen del pedido</span>
+            <span class="text-xs font-mono text-[#ff7189]">{{ cantidad() }} uds</span>
+          </h3>
+
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs text-slate-400">
+              <span>Subtotal estimado</span>
+              <span class="font-mono text-white">S/ {{ total() | number:'1.2-2' }}</span>
+            </div>
+            <div class="flex justify-between text-xs text-slate-400">
+              <span>Envío simulado</span>
+              <span class="font-mono text-emerald-400 font-bold">GRATIS</span>
+            </div>
+            <div class="pt-3 border-t border-slate-800 flex justify-between items-baseline">
+              <span class="text-sm font-bold text-white">Total a pagar</span>
+              <span class="text-xl font-extrabold text-white">S/ {{ total() | number:'1.2-2' }}</span>
+            </div>
+          </div>
+
+          <!-- Customer Data Block -->
+          <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
+            @if (cliente()) {
+              <div class="text-xs text-slate-300">
+                <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-bold">Despacho a:</span>
+                <strong class="text-white block">{{ cliente()?.nombre }}</strong>
+                <span class="text-slate-400 text-[11px] block">{{ cliente()?.email }}</span>
+                <span class="text-slate-400 text-[11px] block truncate">{{ cliente()?.direccion }}</span>
+              </div>
+            } @else {
+              <div class="space-y-2 text-xs">
+                <span class="text-rose-400 font-bold block">Perfil de cliente incompleto</span>
+                <p class="text-[11px] text-slate-400 leading-relaxed">
+                  Para proceder con la orden debes registrar tus datos de contacto y entrega.
+                </p>
+                <a routerLink="/perfil"
+                   class="inline-block text-xs font-bold text-[#ff7189] hover:underline">
+                  Completar perfil ahora ?
+                </a>
+              </div>
+            }
+          </div>
+
+          <!-- Payment Method Options -->
+          <div class="space-y-3">
+            <span class="text-xs font-bold text-slate-300 block">Método de pago simulado</span>
+            <form [formGroup]="metodoPagoForm" class="grid grid-cols-3 gap-2">
+              <label class="cursor-pointer">
+                <input type="radio" value="tarjeta" formControlName="metodo" class="sr-only peer" />
+                <div class="p-2 text-center rounded-xl border border-slate-700 bg-slate-900/60 peer-checked:border-[#e94560] peer-checked:bg-[#e94560]/10 text-xs font-bold text-slate-300 peer-checked:text-white transition-all">
+                  Tarjeta
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input type="radio" value="yape" formControlName="metodo" class="sr-only peer" />
+                <div class="p-2 text-center rounded-xl border border-slate-700 bg-slate-900/60 peer-checked:border-[#e94560] peer-checked:bg-[#e94560]/10 text-xs font-bold text-slate-300 peer-checked:text-white transition-all">
+                  Yape
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input type="radio" value="efectivo" formControlName="metodo" class="sr-only peer" />
+                <div class="p-2 text-center rounded-xl border border-slate-700 bg-slate-900/60 peer-checked:border-[#e94560] peer-checked:bg-[#e94560]/10 text-xs font-bold text-slate-300 peer-checked:text-white transition-all">
+                  Efectivo
+                </div>
+              </label>
+            </form>
+
+            <p class="text-[11px] text-slate-400">
+              {{ metodoInfo[metodoPagoForm.value.metodo ?? 'tarjeta'].description }}
+            </p>
+
+            @if (procesandoPago()) {
+              <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-300 flex items-center gap-2">
+                <div class="w-4 h-4 rounded-full border-2 border-amber-400 border-t-transparent animate-spin shrink-0"></div>
+                <span>Validando transacción y generando orden...</span>
+              </div>
+            }
+          </div>
+
+          <!-- Actions -->
+          <div class="space-y-2 pt-2">
+            <button type="button"
+                    (click)="procesarPago()"
+                    [disabled]="procesandoPago()"
+                    class="w-full py-3.5 px-4 rounded-xl font-bold text-xs sm:text-sm text-white bg-[#e94560] hover:bg-[#d1354e] shadow-[0_4px_15px_rgba(233,69,96,0.35)] transition-all disabled:opacity-50">
+              {{ procesandoPago() ? 'Procesando pago...' : 'Proceder al pago' }}
+            </button>
+
+            <button type="button"
+                    (click)="onVaciar()"
+                    class="w-full py-2.5 text-center text-xs font-semibold text-slate-400 hover:text-rose-400 transition-colors">
+              Vaciar carrito
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    }
+  }
+
+</section>

@@ -1,0 +1,67 @@
+<section class="py-20 md:py-28 relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="rounded-3xl bg-gradient-to-br from-[#111a31] via-[#152342] to-[#0c1227] border border-slate-800 p-8 sm:p-12 lg:p-16 relative overflow-hidden shadow-2xl">
+      
+      <!-- Ambient Glow -->
+      <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-[#e94560]/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+        
+        <!-- Left Column: Copy -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#ff7189]">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#e94560]"></span>
+            <span>Experiencia Transparente</span>
+          </div>
+
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+            De la elección a la entrega, todo bajo tu control.
+          </h2>
+
+          <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+            Hemos diseñado un flujo de compra rápido, amigable y confiable. Experimenta una pasarela demostrativa con validación de inventario y estado logístico al instante.
+          </p>
+
+          <div class="pt-2">
+            <a routerLink="/camaras"
+               class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-white bg-[#e94560] hover:bg-[#d1354e] shadow-[0_10px_25px_rgba(233,69,96,0.3)] transition-all hover:-translate-y-0.5">
+              <span>Empezar ahora</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column: Step by step timeline -->
+        <div class="lg:col-span-7 space-y-4">
+          @for (item of pasos; track item.paso) {
+            <div class="group p-5 rounded-2xl bg-[#0c1227]/80 backdrop-blur-md border border-slate-800 hover:border-[#e94560]/50 transition-all duration-300 hover:translate-x-1.5 flex items-start gap-4 sm:gap-6">
+              
+              <!-- Step Number Badge -->
+              <div class="shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#e94560] to-[#b32b41] flex items-center justify-center text-white font-mono font-extrabold text-sm shadow-md">
+                {{ item.paso }}
+              </div>
+
+              <!-- Content -->
+              <div class="space-y-1">
+                <h3 class="text-base font-bold text-white group-hover:text-[#ff7189] transition-colors">
+                  {{ item.titulo }}
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                  {{ item.descripcion }}
+                </p>
+              </div>
+
+            </div>
+          }
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+

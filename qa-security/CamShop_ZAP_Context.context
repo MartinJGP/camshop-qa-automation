@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+    <context>
+        <name>CamShop_Security_Context</name>
+        <desc>Contexto de auditoría de seguridad DAST para la plataforma de videovigilancia CamShop (UTP - Pruebas de Software)</desc>
+        <inscope>true</inscope>
+        <incregexes>http://localhost:8080/.*</incregexes>
+        <incregexes>http://localhost:4200/.*</incregexes>
+        <excregexes>http://localhost:8080/auth/logout.*</excregexes>
+        <excregexes>http://localhost:8080/h2-console.*</excregexes>
+        <tech>
+            <include>Db.MySQL</include>
+            <include>Db.H2</include>
+            <include>Language.Java</include>
+            <include>Language.JavaScript</include>
+            <include>OS.Linux</include>
+            <include>OS.Windows</include>
+            <include>WS.Tomcat</include>
+        </tech>
+        <urlScanPolicies>
+            <urlScanPolicy>
+                <url>http://localhost:8080/.*</url>
+                <policy>OWASP-Top-10-Strict</policy>
+            </urlScanPolicy>
+        </urlScanPolicies>
+        <authentication>
+            <type>script</type>
+            <strategy>header</strategy>
+            <pollUrl>http://localhost:8080/api/camaras</pollUrl>
+            <pollFrequency>60</pollFrequency>
+            <pollUnits>requests</pollUnits>
+            <loggedInRegex>\bHTTP/1\.[01] 200\b</loggedInRegex>
+            <loggedOutRegex>\bHTTP/1\.[01] 401\b</loggedOutRegex>
+            <script>
+                <name>JWT_Bearer_Injector.js</name>
+                <params>username=juan.perez@email.com&amp;password=SecurityPass123!</params>
+            </script>
+        </authentication>
+        <users>
+            <user>
+                <name>StandardUser_JuanPerez</name>
+                <credentials>username=juan.perez@email.com&amp;password=SecurityPass123!</credentials>
+                <enabled>true</enabled>
+            </user>
+        </users>
+        <forcedUser>StandardUser_JuanPerez</forcedUser>
+    </context>
+</configuration>
