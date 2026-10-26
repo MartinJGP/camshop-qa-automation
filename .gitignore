@@ -41,4 +41,5 @@ Thumbs.db
 *.log
 *.sqlite
 *.db
+*.jtl
 /Backend/CamaraWebBackend/uploads/
