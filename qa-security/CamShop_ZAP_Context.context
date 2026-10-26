@@ -4,8 +4,8 @@
         <name>CamShop_Security_Context</name>
         <desc>Contexto de auditoría de seguridad DAST para la plataforma CamShop (UTP - Pruebas de Software)</desc>
         <inscope>true</inscope>
-        <incregexes>http://localhost:8080.*</incregexes>
-        <incregexes>http://localhost:4200.*</incregexes>
+        <incregexes>http://localhost:8080/.*</incregexes>
+        <incregexes>http://localhost:4200/.*</incregexes>
         <excregexes>http://localhost:8080/auth/logout.*</excregexes>
         <excregexes>http://localhost:8080/h2-console.*</excregexes>
         <tech>
@@ -14,35 +14,5 @@
             <include>Language.JavaScript</include>
             <include>WS.Tomcat</include>
         </tech>
-        <urlparser>
-            <class>org.parosproxy.paros.model.StandardParameterParser</class>
-            <config>pname=;separator=&amp;value=</config>
-        </urlparser>
-        <postparser>
-            <class>org.parosproxy.paros.model.StandardParameterParser</class>
-            <config>pname=;separator=&amp;value=</config>
-        </postparser>
-        <authentication>
-            <type>0</type>
-            <strategy>EACH_REQ_RESP</strategy>
-            <pollurl/>
-            <polldata/>
-            <pollheaders/>
-            <pollfreq>60</pollfreq>
-            <pollunits>REQUESTS</pollunits>
-        </authentication>
-        <forceduser>-1</forceduser>
-        <session>
-            <type>0</type>
-        </session>
-        <authorization>
-            <type>0</type>
-            <basic>
-                <header/>
-                <body/>
-                <logic>AND</logic>
-                <code>-1</code>
-            </basic>
-        </authorization>
     </context>
 </configuration>
