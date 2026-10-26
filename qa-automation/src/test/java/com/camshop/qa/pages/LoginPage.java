@@ -10,7 +10,7 @@ import java.time.Duration;
 
 /**
  * Page Object Model para la página de autenticación (/login).
- * Compatible con formularios reactivos de Angular y alertas dinámicas SweetAlert2 / Tailwind.
+ * Compatible con formularios reactivos de Angular, alertas dinámicas SweetAlert2 y pausas para demo.
  */
 public class LoginPage {
 
@@ -27,9 +27,17 @@ public class LoginPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
+    private void pausaBreve(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException ignored) {
+        }
+    }
+
     public LoginPage navegar(String baseUrl) {
         driver.get(baseUrl + "/login");
         wait.until(ExpectedConditions.visibilityOfElementLocated(btnIniciarSesion));
+        pausaBreve(1000);
         return this;
     }
 
@@ -37,22 +45,25 @@ public class LoginPage {
         WebElement emailElem = wait.until(ExpectedConditions.visibilityOfElementLocated(inputEmail));
         emailElem.clear();
         emailElem.sendKeys(email);
+        pausaBreve(800);
 
         WebElement passElem = wait.until(ExpectedConditions.visibilityOfElementLocated(inputPassword));
         passElem.clear();
         passElem.sendKeys(password);
+        pausaBreve(800);
     }
 
     public CatalogoPage iniciarSesionExitoso(String email, String password) {
         ingresarCredenciales(email, password);
         driver.findElement(btnIniciarSesion).click();
 
-        // Si aparece el modal de éxito de SweetAlert2, confirmar para continuar
+        // Si aparece el modal de SweetAlert2, esperar y confirmar para continuar
         try {
             WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(4));
             WebElement confirmBtn = shortWait.until(
                     ExpectedConditions.elementToBeClickable(By.cssSelector(".swal2-confirm, button.swal2-confirm"))
             );
+            pausaBreve(1500); // Permite ver el SweetAlert de confirmación
             confirmBtn.click();
         } catch (Exception ignored) {
         }
@@ -64,6 +75,7 @@ public class LoginPage {
         }
         driver.get(origin + "/camaras");
         wait.until(ExpectedConditions.urlContains("/camaras"));
+        pausaBreve(1200);
 
         return new CatalogoPage(driver);
     }
@@ -72,6 +84,7 @@ public class LoginPage {
         ingresarCredenciales(email, password);
         driver.findElement(btnIniciarSesion).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(alertaError));
+        pausaBreve(1500);
         return this;
     }
 

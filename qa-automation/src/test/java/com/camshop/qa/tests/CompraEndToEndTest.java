@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Suite de Pruebas Funcionales Automatizadas End-to-End para CamShop.
  * Valida el flujo crítico de compra: Login -> Catálogo -> Carrito -> Checkout.
+ * Incluye pausas estratégicas para visualización en tiempo real durante presentaciones.
  */
 public class CompraEndToEndTest extends BaseTest {
 
@@ -36,6 +37,9 @@ public class CompraEndToEndTest extends BaseTest {
         // 4. Validar confirmación de la orden y estado PAGADO
         CheckoutPage checkout = carrito.procesarPago();
         assertTrue(checkout.esPagoExitoso(), "La orden debe registrarse exitosamente con estado PAGADO");
+
+        // Pausa final de 3 segundos para que el jurado/docente aprecie la orden generada y el estado PAGADO
+        pausar(3000);
     }
 
     @Test
@@ -46,6 +50,9 @@ public class CompraEndToEndTest extends BaseTest {
         loginPage.iniciarSesionInvalido("usuario.falso@email.com", "ClaveInexistente2026");
 
         assertTrue(loginPage.esMensajeErrorVisible(), "Debe mostrarse alerta visual de error de autenticación");
+
+        // Pausa para apreciar la notificación de error en pantalla
+        pausar(2500);
     }
 
     @Test
@@ -57,5 +64,8 @@ public class CompraEndToEndTest extends BaseTest {
         // Validar que la guarda de Angular redirige a /login
         assertTrue(driver.getCurrentUrl().contains("/login"),
                 "El authGuard debe rechazar el acceso anónimo y redirigir a /login");
+
+        // Pausa para apreciar la redirección automática a /login
+        pausar(2500);
     }
 }

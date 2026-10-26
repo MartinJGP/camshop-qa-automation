@@ -25,24 +25,34 @@ public class CarritoPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
+    private void pausaBreve(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException ignored) {
+        }
+    }
+
     public boolean estaEnCarrito() {
         return driver.getCurrentUrl().contains("/carrito");
     }
 
     public CarritoPage seleccionarMetodoTarjeta() {
+        pausaBreve(1000);
         try {
-            // Invocar selección vía JS para asegurar activación en radio buttons estilizados con sr-only de Tailwind
+            // Invocar selección vía JS para asegurar activación en radio buttons con sr-only de Tailwind
             ((JavascriptExecutor) driver).executeScript(
                     "var r = document.querySelector(\"input[value='tarjeta']\");" +
                     "if(r) { r.click(); r.dispatchEvent(new Event('change', { bubbles: true })); }"
             );
         } catch (Exception ignored) {
         }
+        pausaBreve(1500); // Pausa para apreciar el método de pago seleccionado
         return this;
     }
 
     public CheckoutPage procesarPago() {
         WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(btnProcederPago));
+        pausaBreve(1000);
         btn.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(mensajeExito));
         return new CheckoutPage(driver);

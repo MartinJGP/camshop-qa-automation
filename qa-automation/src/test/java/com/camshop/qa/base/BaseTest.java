@@ -11,8 +11,8 @@ import java.time.Duration;
 
 /**
  * Clase base para todas las pruebas funcionales de CamShop.
- * Soporta auto-detección inteligente de navegadores Chromium (Chrome / Brave / Edge)
- * y utiliza el driver local sin dependencias de red externas propensas a fallos de DNS.
+ * Soporta auto-detección de navegadores Chromium (Chrome / Brave / Edge)
+ * y pausas configurables para demostración visual ante jurados/docentes.
  */
 public abstract class BaseTest {
 
@@ -23,17 +23,18 @@ public abstract class BaseTest {
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
-        options.addArguments("--window-size=1920,1080");
+        options.addArguments("--window-size=1400,900");
         options.addArguments("--disable-gpu");
-        options.addArguments("--headless=new"); // Ejecución rápida y silenciosa en segundo plano
+        // Nota: Dejar comentada la siguiente línea para observar el navegador visualmente durante la sustentación:
+        // options.addArguments("--headless=new");
 
-        // Detección automática del binario Chromium instalado (Chrome o Brave)
+        // Detección automática del binario Chromium instalado (Chrome, Brave o Edge)
         String[] possibleBinaries = {
-            "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-            "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
-            System.getProperty("user.home") + "\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe",
-            "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
-            "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+                "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+                "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
+                System.getProperty("user.home") + "\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe",
+                "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
+                "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
         };
 
         for (String binaryPath : possibleBinaries) {
@@ -68,6 +69,17 @@ public abstract class BaseTest {
                 driver.quit();
             } catch (Exception ignored) {
             }
+        }
+    }
+
+    /**
+     * Pausa visual estratégica para permitir que evaluadores y docentes
+     * aprecien con claridad cada interacción durante la sustentación.
+     */
+    protected void pausar(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException ignored) {
         }
     }
 }
