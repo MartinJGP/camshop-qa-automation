@@ -28,6 +28,9 @@ public class LoginPage {
     }
 
     private void pausaBreve(long millis) {
+        if (Boolean.parseBoolean(System.getProperty("headless", "false")) || System.getenv("CI") != null) {
+            return;
+        }
         try {
             Thread.sleep(millis);
         } catch (InterruptedException ignored) {
