@@ -1,0 +1,81 @@
+name: CamShop QA Regression Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+    inputs:
+      test_suite:
+        description: 'Suite de pruebas a ejecutar'
+        required: true
+        default: 'smoke'
+        type: choice
+        options:
+          - smoke
+          - regression
+          - all
+  schedule:
+    - cron: '0 3 * * *'
+
+jobs:
+  smoke-tests:
+    name: Nivel 1 - Smoke Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Ejecutar Suite de Smoke Tests
+        working-directory: qa-automation
+        run: |
+          chmod +x mvnw
+          ./mvnw test -Dgroups="smoke" -Dheadless=true
+
+      - name: Publicar reporte de pruebas Surefire
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-smoke-reports
+          path: qa-automation/target/surefire-reports/
+          retention-days: 14
+
+  regression-tests:
+    name: Nivel 2 - Regression Tests
+    needs: smoke-tests
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.test_suite == 'regression' || github.event.inputs.test_suite == 'all')) || github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Ejecutar Suite Completa de Regresion
+        working-directory: qa-automation
+        run: |
+          chmod +x mvnw
+          ./mvnw test -Dgroups="regression" -Dheadless=true
+
+      - name: Publicar reporte de pruebas de regresion
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-regression-reports
+          path: qa-automation/target/surefire-reports/
+          retention-days: 14

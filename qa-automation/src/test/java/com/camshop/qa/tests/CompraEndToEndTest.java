@@ -6,6 +6,7 @@ import com.camshop.qa.pages.CatalogoPage;
 import com.camshop.qa.pages.CheckoutPage;
 import com.camshop.qa.pages.LoginPage;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,6 +21,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CompraEndToEndTest extends BaseTest {
 
     @Test
+    @Tag("smoke")
+    @Tag("regression")
     @DisplayName("CP-FUNC-01: Flujo E2E Completo - Compra Exitosa (Happy Path)")
     public void testCompraEndToEndExitosa() {
         // 1. Iniciar sesión con usuario válido
@@ -46,6 +49,8 @@ public class CompraEndToEndTest extends BaseTest {
     }
 
     @Test
+    @Tag("smoke")
+    @Tag("regression")
     @DisplayName("CP-FUNC-02: Autenticación con Credenciales Inválidas (Negative Path)")
     public void testLoginConCredencialesInvalidas() {
         LoginPage loginPage = new LoginPage(driver);
@@ -59,6 +64,7 @@ public class CompraEndToEndTest extends BaseTest {
     }
 
     @Test
+    @Tag("regression")
     @DisplayName("CP-FUNC-03: Control de Existencias en Carrito - Validacion de Limite de Stock BVA")
     public void testValidacionLimiteSuperiorStockEnCarrito() {
         LoginPage loginPage = new LoginPage(driver);
@@ -85,6 +91,8 @@ public class CompraEndToEndTest extends BaseTest {
     }
 
     @Test
+    @Tag("smoke")
+    @Tag("regression")
     @DisplayName("CP-FUNC-04: Protección de Ruta /carrito sin Autenticación (authGuard)")
     public void testAccesoDirectoACarritoSinLoginRedirigeALogin() {
         // Navegar directamente a /carrito sin token previo en sesión
