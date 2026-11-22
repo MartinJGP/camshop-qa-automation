@@ -1,5 +1,6 @@
 # Temporary Office lock files
 ~$*
+scratch/
 
 # Documentos formales e informes academicos (entrega via Canvas / Portal UTP)
 *.docx
